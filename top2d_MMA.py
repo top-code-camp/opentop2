@@ -93,7 +93,7 @@ class FILTERMATRIX:
         nelx=self.nelx
         nely=self.nely
         rmin=self.rmin
-        nfilter = nelx * nely * ((2 * (np.ceil(rmin) - 1) + 1) ** 2)
+        nfilter = nelx * nely * ((2 * int(np.ceil(rmin) - 1) + 1) ** 2)
         iH = np.zeros(nfilter)
         jH = np.zeros(nfilter)
         sH = np.zeros(nfilter)
@@ -254,7 +254,7 @@ def main():
         # Plot to screen
         im.set_array(-xx.reshape((nelx, nely)).T)
         fig.canvas.draw()
-        #plt.pause(0.01)
+        plt.pause(0.01)
 
         t4=time.clock()
 
@@ -267,7 +267,7 @@ def main():
     # Make sure the plot stays and that the shell remains
     plt.show()
 
-    raw_input("Press any key...")
+    input("Press any key...")
 
 #element stiffness matrix
 def lk():

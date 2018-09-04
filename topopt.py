@@ -112,7 +112,7 @@ def main(nelx,nely,volfrac,penal,rmin,ft):
         # Plot to screen
         im.set_array(-xPhys.reshape((nelx,nely)).T)
         fig.canvas.draw()
-        plt.pause(0.04)
+        plt.pause(0.01)
         # Write iteration history to screen (req. Python 2.6 or newer)
         print("it.: {0:04d} , obj.: {1:09.3f} Vol.: {2:.3f}, ch.: {3:.3f}".format(\
                     loop,obj,(g+volfrac*nelx*nely)/(nelx*nely),change))
