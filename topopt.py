@@ -1,5 +1,7 @@
 # A 165 LINE TOPOLOGY OPTIMIZATION CODE BY NIELS AAGE AND VILLADS EGEDE JOHANSEN, JANUARY 2013
 from __future__ import division
+import time
+start=time.time()
 import numpy as np
 from scipy.sparse import coo_matrix
 from scipy.sparse.linalg import spsolve
@@ -35,7 +37,7 @@ def main(nelx,nely,volfrac,penal,rmin,ft):
 	iK = np.kron(edofMat,np.ones((8,1))).flatten()
 	jK = np.kron(edofMat,np.ones((1,8))).flatten()    
 	# Filter: Build (and assemble) the index+data vectors for the coo matrix format
-	nfilter=nelx*nely*((2*(np.ceil(rmin)-1)+1)**2)
+	nfilter=nelx*nely*((2*(int(np.ceil(rmin))-1)+1)**2)
 	iH = np.zeros(nfilter)
 	jH = np.zeros(nfilter)
 	sH = np.zeros(nfilter)
@@ -79,7 +81,7 @@ def main(nelx,nely,volfrac,penal,rmin,ft):
 	dv = np.ones(nely*nelx)
 	dc = np.ones(nely*nelx)
 	ce = np.ones(nely*nelx)
-	while change>0.01 and loop<2000:
+	while change>0.01 and loop<20:
 		loop=loop+1
 		# Setup and solve FE problem
 		sK=((KE.flatten()[np.newaxis]).T*(Emin+(xPhys)**penal*(Emax-Emin))).flatten(order='F')
@@ -110,12 +112,15 @@ def main(nelx,nely,volfrac,penal,rmin,ft):
 		# Plot to screen
 		im.set_array(-xPhys.reshape((nelx,nely)).T)
 		fig.canvas.draw()
+		plt.pause(0.05)
 		# Write iteration history to screen (req. Python 2.6 or newer)
 		print("it.: {0} , obj.: {1:.3f} Vol.: {2:.3f}, ch.: {3:.3f}".format(\
 					loop,obj,(g+volfrac*nelx*nely)/(nelx*nely),change))
 	# Make sure the plot stays and that the shell remains	
+	end=time.time()
+	print("total run time (cpu+io) is {0}".format(start-end))
 	plt.show()
-	raw_input("Press any key...")
+	input("Press any key...")
 #element stiffness matrix
 def lk():
 	E=1
