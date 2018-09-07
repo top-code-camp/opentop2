@@ -1,6 +1,7 @@
 # A 165 LINE TOPOLOGY OPTIMIZATION CODE BY NIELS AAGE AND VILLADS EGEDE JOHANSEN, JANUARY 2013
 from __future__ import division
 import time
+from numba import jit
 start=time.time()
 import numpy as np
 from scipy.sparse import coo_matrix
@@ -8,6 +9,7 @@ from scipy.sparse.linalg import spsolve
 from matplotlib import colors
 import matplotlib.pyplot as plt
 # MAIN DRIVER
+@jit
 def main(nelx,nely,volfrac,penal,rmin,ft):
     print("Minimum compliance problem with OC")
     print("ndes: " + str(nelx) + " x " + str(nely))
@@ -116,14 +118,13 @@ def main(nelx,nely,volfrac,penal,rmin,ft):
         # Write iteration history to screen (req. Python 2.6 or newer)
         print("it.: {0:04d} , obj.: {1:09.3f} Vol.: {2:.3f}, ch.: {3:.3f}".format(\
                     loop,obj,(g+volfrac*nelx*nely)/(nelx*nely),change))
-
     # Make sure the plot stays and that the shell remains   
     end=time.time()
     print("Well Done! Total run time (cpu+io) is {0:.0f} seconds".format(end-start))
     plt.show()
     input("Press any key...")
-    
 # element stiffness matrix
+@jit
 def lk():
     E=1
     nu=0.3
@@ -138,6 +139,7 @@ def lk():
     [k[7], k[2], k[1], k[4], k[3], k[6], k[5], k[0]] ]);
     return (KE)
 # Optimality criterion
+@jit
 def oc(nelx,nely,x,volfrac,dc,dv,g):
     l1=0
     l2=1e9

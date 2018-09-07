@@ -1,8 +1,9 @@
 # A 200 LINE TOPOLOGY OPTIMIZATION CODE BY NIELS AAGE AND VILLADS EGEDE JOHANSEN, JANUARY 2013
 # Updated by Niels Aage February 2016
 from __future__ import division
+import time
+start=time.time()
 import numpy as np
-
 from scipy.sparse import coo_matrix
 from scipy.sparse.linalg import spsolve
 from matplotlib import colors
@@ -134,10 +135,12 @@ def main(nelx,nely,volfrac,penal,rmin,ft):
         plt.pause(0.01)
 
         # Write iteration history to screen (req. Python 2.6 or newer)
-        print("it.: {0} , obj.: {1:.3f} Vol.: {2:.3f}, ch.: {3:.3f}".format(\
+        print("it.: {0:04d} , obj.: {1:09.3f} Vol.: {2:.3f}, ch.: {3:.3f}".format(\
                     loop,obj,(g+volfrac*nelx*nely)/(nelx*nely),change))
 
     # Make sure the plot stays and that the shell remains   
+    end=time.time()
+    print("Well Done! Total run time (cpu+io) is {0:.0f} seconds".format(end-start))
     plt.show()
     input("Press any key...")
     

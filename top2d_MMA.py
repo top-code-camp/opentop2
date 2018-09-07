@@ -207,6 +207,7 @@ def main():
     im = ax.imshow(-xx.reshape((nelx, nely)).T, cmap='gray', \
                    interpolation='none', norm=colors.Normalize(vmin=-1, vmax=0))
     fig.show()
+    plt.pause(0.01)
 
     t1 = 0
 
@@ -230,6 +231,7 @@ def main():
         #Stopping criteria
         opt.set_ftol_rel(1e-4)
         #Performing the optimization
+        print("call mma") 
         x = opt.optimize(xx)
 
         t2=time.clock()
