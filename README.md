@@ -8,3 +8,6 @@ Anaconda cloud is a useful place to find already built packages with easy instal
 For example, the following commands install nlopt and cvxopt used by the topopt codes:
 conda install -c acellera nlopt 
 conda install -c conda-forge cvxopt
+
+Useful links:
+[NumPy for MATLAB users] (http://mathesaurus.sourceforge.net/matlab-numpy.html)
