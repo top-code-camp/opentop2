@@ -10,4 +10,4 @@ conda install -c acellera nlopt
 conda install -c conda-forge cvxopt
 
 Useful links:
-[NumPy for MATLAB users] (http://mathesaurus.sourceforge.net/matlab-numpy.html)
+* [NumPy for MATLAB users](http://mathesaurus.sourceforge.net/matlab-numpy.html)
